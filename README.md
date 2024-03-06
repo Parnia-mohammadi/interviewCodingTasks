@@ -1,8 +1,14 @@
-# React + Vite
+1.Quiz App with Timer
+Create a quiz application with a timer that counts down as users answer questions. Display results at the end.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Skills tested: Timer implementation, state management, quiz logic
+Difficulty: Medium - Hard
+Tasks:
 
-Currently, two official plugins are available:
+Implement the quiz application UI with questions and multiple-choice options.
+Add a countdown timer that starts when the quiz begins.
+Calculate and display results at the end
+Hints:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Use React state to manage the quiz state and timer.
+Use JavaScript's setInterval for timer functionality.
