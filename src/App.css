@@ -1,0 +1,19 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    margin: 0 10%;
+}
+.questions{
+    border-bottom: 1px solid black;
+}
+.answers{
+    list-style-type: lower-alpha;
+    display: flex;
+    flex-direction: row;
+    gap: 10rem;
+}
+.answers >div{
+    display: inline-flex;
+    gap: 1rem;
+}
