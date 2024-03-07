@@ -3,42 +3,50 @@ import { useRef, useState } from "react";
 const data = [
   {
     id: 1,
-    question: "why1",
-    answers: ["a", "b", "c", "d"],
-    correctAnswer: 2,
+    question: "question1",
+    answers: ["a1", "b1", "c1", "d1"],
+    correctAnswer: "b1",
   },
   {
     id: 2,
-    question: "why2",
-    answers: ["a", "b", "c", "d"],
-    correctAnswer: 3,
+    question: "question2",
+    answers: ["a2", "b2", "c2", "d2"],
+    correctAnswer: "c2",
   },
 ];
 
 function App() {
   const [getAnswer, setGetAnswer] = useState([]);
-  // const [startTime,setStartTime] = useState(null);
-  // const [now]
+  const handleAnswer = (answer, id) => {
+    if (getAnswer.map((ans) => ans.id).includes(id)) {
+      const newAns = getAnswer.map((ans) =>
+        ans.id == id ? { ...ans, answer } : ans
+      );
+      setGetAnswer(newAns);
+    } else {
+      setGetAnswer((prev) => [...prev, { answer, id }]);
+    }
+  };
+  console.log(getAnswer);
   return (
     <div className="container">
-      <Timer />
-      <form action="">
+      <form>
         {data.map((item) => {
           return (
-            <div key={item.id} className="question">
+            <div className="question" key={item.id}>
               <p>{item.question}</p>
               <div className="answers">
                 {item.answers.map((ans, index) => {
                   return (
-                    <div key={index}>
+                    <div>
                       <input
                         type="radio"
-                        name="answer"
-                        id="answer"
+                        name={item.id}
+                        id={index}
                         value={ans}
-                        onClick={(e)=>handleAnswers(item.id,e.target.value)}
+                        onClick={(e) => handleAnswer(e.target.value, e.target.name)}
                       />
-                      <label htmlFor="answer">{ans}</label>
+                      <label htmlFor={index}>{ans}</label>
                     </div>
                   );
                 })}
@@ -52,7 +60,3 @@ function App() {
 }
 
 export default App;
-
-function Timer() {
-  return <div></div>;
-}

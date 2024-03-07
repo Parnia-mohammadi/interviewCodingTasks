@@ -1,19 +1,28 @@
 .container {
     display: flex;
     flex-direction: column;
-    gap: 3rem;
-    margin: 0 10%;
+    gap: 5%;
+    flex-wrap: wrap;
+    margin: 3% 10%;
 }
-.questions{
+.question{
     border-bottom: 1px solid black;
+    display: flex;
+    flex-direction: column;
 }
 .answers{
-    list-style-type: lower-alpha;
     display: flex;
     flex-direction: row;
-    gap: 10rem;
+    flex-wrap:wrap;
+    gap:2%;
 }
 .answers >div{
     display: inline-flex;
-    gap: 1rem;
+    gap: 1%;
+}
+.btn {
+    background-color: skyblue;
+    margin-top: 4%;
+    border-radius: 1rem;
+    width: 5rem;
 }
