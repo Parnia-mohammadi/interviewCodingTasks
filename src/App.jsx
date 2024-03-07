@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const data = [
   {
@@ -17,6 +17,9 @@ const data = [
 
 function App() {
   const [getAnswer, setGetAnswer] = useState([]);
+  const [leftTime, setLeftTime] = useState(10);
+  const [resultTest, setResultTest] = useState(null);
+  const interval = useRef();
   const handleAnswer = (answer, id) => {
     if (getAnswer.map((ans) => ans.id).includes(id)) {
       const newAns = getAnswer.map((ans) =>
@@ -27,9 +30,36 @@ function App() {
       setGetAnswer((prev) => [...prev, { answer, id }]);
     }
   };
-  console.log(getAnswer);
+  const handleSubmit = () => {
+    clearInterval(interval.current);
+    for (let i = 0; i < data.length; i++) {
+      var correctAnswers =
+        getAnswer.map((ans) => ans.answer)[i] == data[i].correctAnswer;
+      if (correctAnswers) {
+        setResultTest((c) => c + 1);
+      }
+    }
+    if(resultTest==null && !correctAnswers){setResultTest(0)};
+  };
+  useEffect(() => {
+    if (getAnswer.length != 0 && leftTime > 0) {
+      interval.current = setInterval(() => {
+        setLeftTime((t) => t - 1);
+      }, 1000);
+      return () => {
+        clearInterval(interval.current);
+      };
+    }
+  }, [leftTime, getAnswer]);
+  if (resultTest != null)
+    return (
+      <div>
+        <h1>{`You have answered ${resultTest} out of ${data.length} questions correctly.`}</h1>
+      </div>
+    );
   return (
     <div className="container">
+      <h1>{leftTime}</h1>
       <form>
         {data.map((item) => {
           return (
@@ -44,7 +74,11 @@ function App() {
                         name={item.id}
                         id={index}
                         value={ans}
-                        onClick={(e) => handleAnswer(e.target.value, e.target.name)}
+                        key={index}
+                        required
+                        onClick={(e) =>
+                          handleAnswer(e.target.value, e.target.name)
+                        }
                       />
                       <label htmlFor={index}>{ans}</label>
                     </div>
@@ -54,6 +88,11 @@ function App() {
             </div>
           );
         })}
+        {leftTime > 0 ? (
+          <button onClick={handleSubmit}>Submit</button>
+        ) : (
+          <h3>Your time to answer these questions is over. Game Over!!!</h3>
+        )}
       </form>
     </div>
   );
